@@ -40,7 +40,7 @@ extern "C" {
 			}
 			if (temp == "+") {
 				++tok_iter;
-				if (*tok_iter == "+" or *tok_iter == "=")
+				if (tok_iter != tokens.end() && (*tok_iter == "+" or *tok_iter == "="))
 					temp += *tok_iter;
 				else tok_iter = re;
 			}
@@ -63,67 +63,67 @@ extern "C" {
 			}
 			if (temp == "*") {
 				tok_iter++;
-				if (*tok_iter == "=")
+				if (tok_iter != tokens.end() && *tok_iter == "=")
 					temp += *tok_iter;
 				else tok_iter = re;
 			}
 			if (temp == "&") {
 				tok_iter++;
-				if (*tok_iter == "&" or *tok_iter == "=")
+				if (tok_iter != tokens.end() && (*tok_iter == "&" or *tok_iter == "="))
 					temp += *tok_iter;
 				else tok_iter = re;
 			}
 			if (temp == "|") {
 				tok_iter++;
-				if (*tok_iter == "|" or *tok_iter == "=")
+				if (tok_iter != tokens.end() && (*tok_iter == "|" or *tok_iter == "="))
 					temp += *tok_iter;
 				else tok_iter = re;
 			}
 			if (temp == "!") {
 				tok_iter++;
-				if (*tok_iter == "=")
+				if (tok_iter != tokens.end() && *tok_iter == "=")
 					temp += *tok_iter;
 				else tok_iter = re;
 			}
 			if (temp == "%") {
 				tok_iter++;
-				if (*tok_iter == "=")
+				if (tok_iter != tokens.end() && *tok_iter == "=")
 					temp += *tok_iter;
 				else tok_iter = re;
 			}
 			if (temp == "=") {
 				tok_iter++;
-				if (*tok_iter == "=")
+				if (tok_iter != tokens.end() && *tok_iter == "=")
 					temp += *tok_iter;
 				else tok_iter = re;
 			}
 			if (temp == ":") {
 				tok_iter++;
-				if (*tok_iter == ":")
+				if (tok_iter != tokens.end() && *tok_iter == ":")
 					temp += *tok_iter;
 				else tok_iter = re;
 			}
 			if (temp == "^") {
 				tok_iter++;
-				if (*tok_iter == "=")
+				if (tok_iter != tokens.end() && *tok_iter == "=")
 					temp += *tok_iter;
 				else tok_iter = re;
 			}
 			if (temp == "#") {
 				tok_iter++;
-				if (*tok_iter == "#")
+				if (tok_iter != tokens.end() && *tok_iter == "#")
 					temp += *tok_iter;
 				else tok_iter = re;
 			}
 			if (temp == ">") {
 				tok_iter++;
-				if (*tok_iter == "=")
+				if (tok_iter != tokens.end() && *tok_iter == "=")
 					temp += *tok_iter;
-				else if (*tok_iter == ">") {
+				else if (tok_iter != tokens.end() && *tok_iter == ">") {
 					temp += *tok_iter;
 					re = tok_iter;
 					tok_iter++;
-					if (*tok_iter == "=")
+					if (tok_iter != tokens.end() && *tok_iter == "=")
 						temp += *tok_iter;
 					else tok_iter = re;
 				}
@@ -131,13 +131,13 @@ extern "C" {
 			}
 			if (temp == "<") {
 				tok_iter++;
-				if (*tok_iter == "=")
+				if (tok_iter != tokens.end() && *tok_iter == "=")
 					temp += *tok_iter;
-				else if (*tok_iter == "<") {
+				else if (tok_iter != tokens.end() && *tok_iter == "<") {
 					temp += *tok_iter;
 					re = tok_iter;
 					tok_iter++;
-					if (*tok_iter == "=")
+					if (tok_iter != tokens.end() && *tok_iter == "=")
 						temp += *tok_iter;
 					else tok_iter = re;
 				}
@@ -145,12 +145,12 @@ extern "C" {
 			}
 			if (temp == "/") {
 				++tok_iter;
-				if (*tok_iter == "/") {
+				if (tok_iter != tokens.end() && *tok_iter == "/") {
 					while (tok_iter != tokens.end() && *tok_iter != "\n") {
 						temp += *tok_iter, ++tok_iter;
 					}
 				}
-				else if (*tok_iter == "*") {
+				else if (tok_iter != tokens.end() && *tok_iter == "*") {
 					temp += *tok_iter;
 					bool comment_closed = false;
 					while (tok_iter != tokens.end() && !comment_closed) {
@@ -184,7 +184,6 @@ extern "C" {
 				tok_iter++;
 				if(tok_iter == tokens.end()){
 					tok_iter = re;
-					break;
 				}
 				if (Alldigit(*tok_iter) && Alldigit(ans.back())) {
 					temp = ans.back() + temp + *tok_iter;
