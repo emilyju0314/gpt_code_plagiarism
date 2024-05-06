@@ -151,22 +151,29 @@ extern "C" {
 					}
 				}
 				else if (*tok_iter == "*") {
+					temp += *tok_iter;
 					bool comment_closed = false;
 					while (tok_iter != tokens.end() && !comment_closed) {
-						//cout<<*tok_iter<<endl;
-						temp += *tok_iter;
 						++tok_iter;
+						if(tok_iter == tokens.end())break;
+						temp += *tok_iter;
 						if (*tok_iter == "*") {
-							temp += *tok_iter;
+							re = tok_iter;
 							++tok_iter;
 							if (tok_iter != tokens.end() && *tok_iter == "/") {
 								comment_closed = true;
 								temp += "/";
-							}
+							}else tok_iter = re;
 						}
 					}
-					if (!comment_closed)
-						cerr << "Unclosed multi-line comment" << endl;
+					if (!comment_closed){
+						cout << "Unclosed multi-line comment" << endl;
+						origin_code = "";
+						origin_comm = "";
+						ans.clear();
+						comm_token.clear();
+						return 0;
+					}
 				}
 				else {
 					tok_iter = re;
@@ -175,6 +182,10 @@ extern "C" {
 
 			if (temp == ".") {
 				tok_iter++;
+				if(tok_iter == tokens.end()){
+					tok_iter = re;
+					break;
+				}
 				if (Alldigit(*tok_iter) && Alldigit(ans.back())) {
 					temp = ans.back() + temp + *tok_iter;
 					ans.pop_back();
@@ -183,7 +194,7 @@ extern "C" {
 					temp += *tok_iter;
 					re = tok_iter;
 					tok_iter++;
-					if (*tok_iter == ".")
+					if (tok_iter != tokens.end() && *tok_iter == ".")
 						temp += *tok_iter;
 					else tok_iter = re;
 				}
@@ -254,6 +265,8 @@ int main(int argc, char** argv)
 {
 	origin_code = "";
 	origin_comm = "";
+	ans.clear();
+	comm_token.clear();
 	for (int i = 1; i < argc; i++) {
 		bool a = token(argv[i]);
 		if (a == 0) return 1;
