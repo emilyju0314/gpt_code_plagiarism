@@ -1,0 +1,87 @@
+#include<iostream>
+#include<stack>
+#include<vector>
+using namespace std;
+vector<string> str,damn;
+vector<string> lis;
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int n,i,j,k,l,lst=0,numa=0,numb=0,ite,nowa=0,nowb=0;
+	string s,t,hix;
+	cin>>n>>s;
+	for(i=0;i<2*n;i++){
+		if(s[i]=='a'){
+			numa++;
+		}
+		else{
+			numb++;
+		}
+		if(numa==numb){
+			str.push_back(s.substr(lst,i-lst+1));
+			lst=i+1;
+		}
+	}
+	for(i=0;i<str.size();i++){
+		t=str[i];
+		hix="";
+		if(t[0]=='a'){
+			ite=0;
+			nowa=0;
+			nowb=0;
+			while(ite<t.size()){
+				while(ite<t.size()&&t[ite]=='b'){
+					ite++;
+					nowb++;
+				}
+				if(ite==t.size()){
+					break;
+				}
+				hix+="ab";
+				j=nowa+1;
+				while(j>nowb){
+					if(t[ite]=='b'){
+						nowb++;
+					}
+					else{
+						nowa++;
+					}
+					ite++;
+				}
+			}
+			if(damn.size()){
+				t=damn.back();
+			}
+			if(damn.size()&&t[0]=='a'){
+				t+=hix;
+				damn.pop_back();
+				damn.push_back(t);
+			}
+			else{
+				damn.push_back(hix);
+			}
+		}
+		else{
+			nowb=0;
+			for(j=0;j<t.size();j++){
+				if(t[j]=='b'){
+					nowb++;	
+				}
+				else{
+					nowb--;
+				}
+				hix=max(hix,string(nowb,'b')+t.substr(j+1,t.size()-j-1));
+			}
+			damn.push_back(hix);
+		}
+	}
+	for(i=0;i<damn.size();i++){
+		while(lis.size()&&lis.back()<damn[i]){
+			lis.pop_back();
+		}
+		lis.push_back(damn[i]);
+	}
+	for(i=0;i<lis.size();i++){
+		cout<<lis[i];
+	}
+}

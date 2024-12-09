@@ -1,0 +1,3 @@
+#include<iostream>
+#include<vector>
+using namespace std;typedef pair<int,int>P;typedef vector<P>V;typedef V::iterator I;void D(V&v,int x,I&i){int c=0;for(i=v.begin();c<x;++i)c+=i->second-i->first;int&s=i[-1].second;i=v.insert(i,P(s-c+x,s));s-=c-x;}void S(V&v,int x,int y){I i,j;v.reserve(v.size()+2);D(v,x,i);D(v,y,j);V v1(j,v.end());v1.insert(v1.end(),i,j);v1.insert(v1.end(),v.begin(),i);v=v1;}int main(){int n,m,p,q,r,x,y,c;for(;cin>>n>>m>>p>>q>>r,n;){V v(1,P(0,n));for(;m--;){cin>>x>>y;S(v,x,y);}v.reserve(v.size()+2);I i,e;D(v,p-1,i);D(v,q,e);for(c=0;i!=e;++i)c+=i->second<=r?i->second-i->first:i->first<r?r-i->first:0;cout<<c<<endl;}}

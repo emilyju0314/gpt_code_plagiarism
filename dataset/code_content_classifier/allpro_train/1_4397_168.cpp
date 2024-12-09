@@ -1,0 +1,1 @@
+extern"C"{int scanf(char*,...);int printf(char*,...);}int n,a,b;int main(){scanf("%d",&n);n&1?printf("Hello World"):(scanf("%d%d",&a,&b),printf("%d",a+b));}
