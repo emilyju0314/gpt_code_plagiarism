@@ -1,0 +1,30 @@
+long
+tw_snapshot_delta(tw_lp *lp, size_t state_sz)
+{
+    long i;
+    tw_clock start;
+    int ret_size = 0;
+    unsigned char *current_state = (unsigned char *)lp->cur_state.get();
+    unsigned char *snapshot = lp->pe->delta_buffer[0];
+    void *scratch = lp->pe->delta_buffer[2];
+
+    for (i = 0; i < state_sz; i++) {
+        snapshot[i] = current_state[i] - snapshot[i];
+    }
+
+    start = tw_clock_read();
+    ret_size = LZ4_compress_fast_extState(scratch, (char*)snapshot, (char*)lp->pe->delta_buffer[1], state_sz, g_tw_delta_sz, g_tw_lz4_knob);
+    g_tw_pe[0]->stats.s_lz4 += (tw_clock_read() - start);
+    if (ret_size < 0) {
+        tw_error(TW_LOC, "LZ4_compress error");
+    }
+
+    start = tw_clock_read();
+    lp->pe->cur_event->delta_buddy = buddy_alloc(ret_size);
+    g_tw_pe[0]->stats.s_buddy += (tw_clock_read() - start);
+    assert(lp->pe->cur_event->delta_buddy);
+    lp->pe->cur_event->delta_size = ret_size;
+    memcpy(lp->pe->cur_event->delta_buddy, lp->pe->delta_buffer[1], ret_size);
+
+    return ret_size;
+}

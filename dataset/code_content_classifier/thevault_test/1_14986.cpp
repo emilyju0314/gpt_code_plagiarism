@@ -1,0 +1,5 @@
+FOR_EACH_WORLD_TILE(i)
+	{
+		i->uiFlags       &= ~MAPELEMENT_REACHABLE;
+		i->ubExtFlags[0] &= ~MAPELEMENT_EXT_ROOFCODE_VISITED;
+	}

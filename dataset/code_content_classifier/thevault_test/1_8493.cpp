@@ -1,0 +1,8 @@
+void Pipeline::convexHulls(std::vector<std::vector<cv::Point> > &inputContours, std::vector<std::vector<cv::Point> > &outputContours) {
+		std::vector<std::vector<cv::Point> > hull (inputContours.size());
+		outputContours.clear();
+		for (size_t i = 0; i < inputContours.size(); i++ ) {
+			cv::convexHull(cv::Mat((inputContours)[i]), hull[i], false);
+		}
+		outputContours = hull;
+	}

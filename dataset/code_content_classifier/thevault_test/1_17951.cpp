@@ -1,0 +1,5 @@
+void Flush()
+	{
+		FlushMouse();
+		FlushKeyboard();
+	}

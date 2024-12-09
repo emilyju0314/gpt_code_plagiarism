@@ -1,0 +1,25 @@
+void DCCPTCPlikeAgent::delay_bind_init_all(){
+	delay_bind_init_one("initial_cwnd_");
+	delay_bind_init_one("cwnd_timeout_");
+	delay_bind_init_one("initial_ssthresh_");
+	delay_bind_init_one("cwnd_");
+	delay_bind_init_one("cwnd_frac_");
+	delay_bind_init_one("ssthresh_");
+	delay_bind_init_one("pipe_");
+	delay_bind_init_one("initial_rto_");
+	delay_bind_init_one("min_rto_");
+	delay_bind_init_one("rto_");
+	delay_bind_init_one("srtt_");
+	delay_bind_init_one("rttvar_");
+	delay_bind_init_one("rtt_sample_");
+	delay_bind_init_one("alpha_");
+	delay_bind_init_one("beta_");
+	delay_bind_init_one("k_");
+	delay_bind_init_one("g_");
+	delay_bind_init_one("num_dup_acks_");
+	delay_bind_init_one("q_min_t_");
+	delay_bind_init_one("dack_delay_");
+	delay_bind_init_one("q_opt_ratio_");
+	delay_bind_init_one("ackv_size_lim_");
+	DCCPAgent::delay_bind_init_all();
+}

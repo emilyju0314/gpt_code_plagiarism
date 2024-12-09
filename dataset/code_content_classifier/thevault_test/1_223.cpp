@@ -1,0 +1,17 @@
+FilterButterBand_24k_500_5000::FilterButterBand_24k_500_5000()
+{
+	B.push_back(1.817437373698117e-01);
+	B.push_back(0.000000000000000e+00);
+	B.push_back(-3.634874747396234e-01);
+	B.push_back(0.000000000000000e+00);
+	B.push_back(1.817437373698117e-01);
+	A.push_back(1.000000000000000e+00);
+	A.push_back(-2.257597497976864e+00);
+	A.push_back(1.888353169572497e+00);
+	A.push_back(-8.300890337275101e-01);
+	A.push_back(2.137802273649247e-01);
+	d.push_back(0);
+	d.push_back(0);
+	d.push_back(0);
+	d.push_back(0);
+}
