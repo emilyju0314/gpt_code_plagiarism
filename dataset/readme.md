@@ -8,3 +8,6 @@
 ### codeBert_fine_tunning
 
 利用hungging face上專門給語言模型訓練用的公開資料集[xlcost-text-to-code](https://huggingface.co/datasets/codeparrot/xlcost-text-to-code)，將資料集運用於CodeBert的C++語言訓練。
+
+### theVault_test.zip
+the_stack資料集經過整理後為[the_vault](https://github.com/FSoft-AI4Code/TheVault)，主要是用於訓練語言模型，我們提取出其中的C++程式碼，涵蓋了所有C++程式碼的使用範圍，總共有18169筆人類程式碼，此資料集用於進行模型的泛化能力測試。
