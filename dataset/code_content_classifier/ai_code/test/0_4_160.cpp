@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n, m, r_b, c_b, r_d, c_d;
+        cin >> n >> m >> r_b >> c_b >> r_d >> c_d;
+
+        int time = 0;
+
+        while(true) {
+            if(r_b == r_d && c_b == c_d) {
+                break;
+            }
+
+            if(r_b < r_d) {
+                r_b++;
+            } else if(r_b > r_d) {
+                r_b--;
+            }
+
+            if(c_b < c_d) {
+                c_b++;
+            } else if(c_b > c_d) {
+                c_b--;
+            }
+
+            if(r_b == r_d && c_b == c_d) {
+                time++;
+                break;
+            }
+
+            time++;
+        }
+
+        cout << time << endl;
+    }
+
+    return 0;
+}

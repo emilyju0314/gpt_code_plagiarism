@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        cin >> n;
+
+        vector<pair<int, pair<int, int>>> ranges;
+        for (int i = 0; i < n; i++) {
+            int l, r;
+            cin >> l >> r;
+            ranges.push_back({r - l, {l, r}});
+        }
+
+        sort(ranges.begin(), ranges.end());
+
+        int current_number = 1;
+        for (int i = 0; i < n; i++) {
+            int l = ranges[i].second.first;
+            int r = ranges[i].second.second;
+            cout << l << ' ' << r << ' ' << current_number << '\n';
+            current_number++;
+        }
+    }
+
+    return 0;
+}
